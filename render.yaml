@@ -22,5 +22,7 @@ services:
     startCommand: npm run start
     envVars:
       - key: NEXT_PUBLIC_API_URL
-        # This dynamically references the backend URL provided by Render
-        value: ${fireflies-backend.url}/api
+        fromService:
+          type: web
+          name: fireflies-backend
+          envVarKey: RENDER_EXTERNAL_URL

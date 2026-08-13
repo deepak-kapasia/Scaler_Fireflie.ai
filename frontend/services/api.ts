@@ -20,8 +20,10 @@ import type {
   MeetingFilters,
 } from "@/types";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
-
+let BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api";
+if (BASE_URL && !BASE_URL.endsWith("/api")) {
+  BASE_URL = `${BASE_URL.replace(/\/$/, "")}/api`;
+}
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const url = `${BASE_URL}${path}`;
   const res = await fetch(url, {
