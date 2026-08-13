@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+/* Range input */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7c3aed;
+  cursor: pointer;
+  margin-top: -4px;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #e5e7eb;
+  border-radius: 99px;
+}
+
+/* Mark highlight */
+mark {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* Line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes zoom-in-95 {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes slide-in-bottom {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-in {
+  animation-fill-mode: both;
+}
+.fade-in-0 {
+  animation-name: fade-in;
+}
+.zoom-in-95 {
+  animation-name: zoom-in-95;
+}
+.slide-in-from-bottom-2 {
+  animation-name: slide-in-bottom;
+}
+.duration-100 {
+  animation-duration: 100ms;
+}
+.duration-200 {
+  animation-duration: 200ms;
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  /* Hide sidebar and header and media player during print */
+  .w-64, header, nav, button, video, audio, [class*="fixed"], [id*="player"] {
+    display: none !important;
+  }
+  /* Expand the main content to take full width */
+  main {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  /* Keep panels visible but remove backgrounds and shadows */
+  .bg-white {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  /* Make scrolling areas expand to full height for printing */
+  .overflow-hidden, .overflow-y-auto {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+  /* For transcript flex containers */
+  .flex-1 {
+    display: block !important;
+  }
+}
