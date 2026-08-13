@@ -1,0 +1,26 @@
+services:
+  # Backend FastAPI Service
+  - type: web
+    name: fireflies-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        value: sqlite:///./fireflies.db
+      - key: CORS_ORIGINS
+        # Allow any origin for ease of setup, or replace with frontend URL once deployed
+        value: "*"
+        
+  # Frontend Next.js Service
+  - type: web
+    name: fireflies-frontend
+    env: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        # This dynamically references the backend URL provided by Render
+        value: ${fireflies-backend.url}/api
